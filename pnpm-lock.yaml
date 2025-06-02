@@ -8,6 +8,18 @@ importers:
 
   .:
     dependencies:
+      '@tanstack/react-query':
+        specifier: ^5.79.0
+        version: 5.79.0(react@19.1.0)
+      '@trpc/client':
+        specifier: ^11.2.0
+        version: 11.2.0(@trpc/server@11.2.0(typescript@5.8.3))(typescript@5.8.3)
+      '@trpc/server':
+        specifier: ^11.2.0
+        version: 11.2.0(typescript@5.8.3)
+      '@trpc/tanstack-react-query':
+        specifier: ^11.2.0
+        version: 11.2.0(@tanstack/react-query@5.79.0(react@19.1.0))(@trpc/client@11.2.0(@trpc/server@11.2.0(typescript@5.8.3))(typescript@5.8.3))(@trpc/server@11.2.0(typescript@5.8.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -26,6 +38,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.1.0(react@19.1.0)
+      superjson:
+        specifier: ^2.2.2
+        version: 2.2.2
       tailwind-merge:
         specifier: ^3.3.0
         version: 3.3.0
@@ -1163,6 +1178,14 @@ packages:
   '@tailwindcss/postcss@4.1.8':
     resolution: {integrity: sha512-vB/vlf7rIky+w94aWMw34bWW1ka6g6C3xIOdICKX2GC0VcLtL6fhlLiafF0DVIwa9V6EHz8kbWMkS2s2QvvNlw==}
 
+  '@tanstack/query-core@5.79.0':
+    resolution: {integrity: sha512-s+epTqqLM0/TbJzMAK7OEhZIzh63P9sWz5HEFc5XHL4FvKQXQkcjI8F3nee+H/xVVn7mrP610nVXwOytTSYd0w==}
+
+  '@tanstack/react-query@5.79.0':
+    resolution: {integrity: sha512-DjC4JIYZnYzxaTzbg3osOU63VNLP67dOrWet2cZvXgmgwAXNxfS52AMq86M5++ILuzW+BqTUEVMTjhrZ7/XBuA==}
+    peerDependencies:
+      react: ^18 || ^19
+
   '@tiptap/core@2.12.0':
     resolution: {integrity: sha512-3qX8oGVKFFZzQ0vit+ZolR6AJIATBzmEmjAA0llFhWk4vf3v64p1YcXcJsOBsr5scizJu5L6RYWEFatFwqckRg==}
     peerDependencies:
@@ -1336,6 +1359,27 @@ packages:
 
   '@tldraw/validate@3.13.1':
     resolution: {integrity: sha512-jBwVs4Ts216ylZbkTN3+mw98E2FhgxDmRMX/sj8y+iO8gOEzR8HKJJXqK4lStMbMbEjBnjqily8MtAB7xbMJvg==}
+
+  '@trpc/client@11.2.0':
+    resolution: {integrity: sha512-uGehc0QvK3+UmTZb1KmIwvMLtRW0I5ykiYQHA1Yqa7yHPzpF9zw7mbwna6gqZAgjclt0/S6jwxAMJizoaP8uqQ==}
+    peerDependencies:
+      '@trpc/server': 11.2.0
+      typescript: '>=5.7.2'
+
+  '@trpc/server@11.2.0':
+    resolution: {integrity: sha512-clESXvCT3rTRUavB3wjtmPDlbB+rayVPeaTeXEQVeQNdTrK5o6GnYfCdiJJSdQspUQAwkGgQFRnku5pckuISlw==}
+    peerDependencies:
+      typescript: '>=5.7.2'
+
+  '@trpc/tanstack-react-query@11.2.0':
+    resolution: {integrity: sha512-Jv2YJjXCJT1wGPozjwToVbYG+5AwLXtGif2b9baDCqehjjwdFZg34OlD/jC0+7frKz1emqij+sDCXXOYqbZAoA==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.67.1
+      '@trpc/client': 11.2.0
+      '@trpc/server': 11.2.0
+      react: '>=18.2.0'
+      react-dom: '>=18.2.0'
+      typescript: '>=5.7.2'
 
   '@tybys/wasm-util@0.9.0':
     resolution: {integrity: sha512-6+7nlbMVX/PVDCwaIQ8nTOPveOcFLSt8GcXdx8hD0bt39uWxYT88uXzqTd4fTvqta7oeUJqudepapKNt2DYJFw==}
@@ -1677,6 +1721,10 @@ packages:
 
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+
+  copy-anything@3.0.5:
+    resolution: {integrity: sha512-yCEafptTtb4bk7GLEQoM8KVJpxAfdBJYaXyzQEgQQQgYrZiDp8SJmGKlYza6CYjEDNstAdNdKA3UuoULlEbS6w==}
+    engines: {node: '>=12.13'}
 
   core-js@3.42.0:
     resolution: {integrity: sha512-Sz4PP4ZA+Rq4II21qkNqOEDTDrCvcANId3xpIgB34NDkWc3UduWj2dqEtN9yZIq8Dk3HyPI33x9sqqU5C8sr0g==}
@@ -2186,6 +2234,10 @@ packages:
   is-weakset@2.0.4:
     resolution: {integrity: sha512-mfcwb6IzQyOKTs84CQMrOwW4gQcaTOAWJ0zzJCl2WSPDrWk/OzDaImWFH3djXhb24g4eudZfLRozAvPGw4d9hQ==}
     engines: {node: '>= 0.4'}
+
+  is-what@4.1.16:
+    resolution: {integrity: sha512-ZhMwEosbFJkA0YhFnNDgTM4ZxDRsS6HqTo7qsZM08fehyRYIYa0yHu5R6mgo1n/8MgaPBXiPimPD77baVFYg+A==}
+    engines: {node: '>=12.13'}
 
   isarray@2.0.5:
     resolution: {integrity: sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==}
@@ -2800,6 +2852,10 @@ packages:
         optional: true
       babel-plugin-macros:
         optional: true
+
+  superjson@2.2.2:
+    resolution: {integrity: sha512-5JRxVqC8I8NuOUjzBbvVJAKNM8qoVuH0O77h4WInc/qC2q5IreqKxYwgkga3PfA22OayK2ikceb/B26dztPl+Q==}
+    engines: {node: '>=16'}
 
   supports-color@7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
@@ -4042,6 +4098,13 @@ snapshots:
       postcss: 8.5.4
       tailwindcss: 4.1.8
 
+  '@tanstack/query-core@5.79.0': {}
+
+  '@tanstack/react-query@5.79.0(react@19.1.0)':
+    dependencies:
+      '@tanstack/query-core': 5.79.0
+      react: 19.1.0
+
   '@tiptap/core@2.12.0(@tiptap/pm@2.12.0)':
     dependencies:
       '@tiptap/pm': 2.12.0
@@ -4264,6 +4327,24 @@ snapshots:
   '@tldraw/validate@3.13.1':
     dependencies:
       '@tldraw/utils': 3.13.1
+
+  '@trpc/client@11.2.0(@trpc/server@11.2.0(typescript@5.8.3))(typescript@5.8.3)':
+    dependencies:
+      '@trpc/server': 11.2.0(typescript@5.8.3)
+      typescript: 5.8.3
+
+  '@trpc/server@11.2.0(typescript@5.8.3)':
+    dependencies:
+      typescript: 5.8.3
+
+  '@trpc/tanstack-react-query@11.2.0(@tanstack/react-query@5.79.0(react@19.1.0))(@trpc/client@11.2.0(@trpc/server@11.2.0(typescript@5.8.3))(typescript@5.8.3))(@trpc/server@11.2.0(typescript@5.8.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)':
+    dependencies:
+      '@tanstack/react-query': 5.79.0(react@19.1.0)
+      '@trpc/client': 11.2.0(@trpc/server@11.2.0(typescript@5.8.3))(typescript@5.8.3)
+      '@trpc/server': 11.2.0(typescript@5.8.3)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      typescript: 5.8.3
 
   '@tybys/wasm-util@0.9.0':
     dependencies:
@@ -4631,6 +4712,10 @@ snapshots:
     optional: true
 
   concat-map@0.0.1: {}
+
+  copy-anything@3.0.5:
+    dependencies:
+      is-what: 4.1.16
 
   core-js@3.42.0: {}
 
@@ -5289,6 +5374,8 @@ snapshots:
     dependencies:
       call-bound: 1.0.4
       get-intrinsic: 1.3.0
+
+  is-what@4.1.16: {}
 
   isarray@2.0.5: {}
 
@@ -6032,6 +6119,10 @@ snapshots:
     dependencies:
       client-only: 0.0.1
       react: 19.1.0
+
+  superjson@2.2.2:
+    dependencies:
+      copy-anything: 3.0.5
 
   supports-color@7.2.0:
     dependencies:
