@@ -12,12 +12,12 @@ import {
 import "tldraw/tldraw.css";
 import { Card } from "./ui/card";
 
-export function Editor({ name }: { name: string }) {
+export function Editor({ id }: { id: string }) {
   const store = useMemo(() => createTLStore(), []);
 
   const trpc = useTRPC();
   const { data: drawing, isLoading } = useSuspenseQuery(
-    trpc.editor.getDrawing.queryOptions({ name })
+    trpc.editor.getDrawing.queryOptions({ id })
   );
   const updateDrawing = useMutation(
     trpc.editor.updateDrawing.mutationOptions()
@@ -41,8 +41,9 @@ export function Editor({ name }: { name: string }) {
     const cleanupFn = store.listen(
       throttle(() => {
         const snapshot = getSnapshot(store);
+        console.log("updating drawing", id);
         updateDrawing.mutate({
-          name,
+          id,
           snapshot: JSON.stringify(snapshot),
         });
       }, 500)

@@ -8,12 +8,12 @@ export default async function EditorPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  prefetch(trpc.editor.getDrawing.queryOptions({ name: slug }));
+  prefetch(trpc.editor.getDrawing.queryOptions({ id: slug }));
 
   return (
     <HydrateClient>
       <div className="h-full w-full">
-        <Editor name={slug} />
+        <Editor id={slug} />
       </div>
     </HydrateClient>
   );

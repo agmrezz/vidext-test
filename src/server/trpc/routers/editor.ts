@@ -52,7 +52,7 @@ export const editorRouter = router({
   getDrawing: publicProcedure
     .input(
       z.object({
-        name: z.string(),
+        id: z.coerce.number(),
       })
     )
     .output(
@@ -61,10 +61,10 @@ export const editorRouter = router({
         snapshot: z.json(),
       })
     )
-    .query(async ({ ctx, input: { name } }) => {
+    .query(async ({ ctx, input: { id } }) => {
       try {
         const drawing = await ctx.db.query.tldrawSnapshots.findFirst({
-          where: eq(tldrawSnapshots.name, name),
+          where: eq(tldrawSnapshots.id, id),
         });
         if (!drawing) {
           throw new TRPCError({ code: "NOT_FOUND" });
@@ -75,28 +75,39 @@ export const editorRouter = router({
         throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
       }
     }),
-  updateDrawing: publicProcedure
+  createDrawing: publicProcedure
     .input(
       z.object({
         name: z.string(),
-        snapshot: z.json(),
       })
     )
-    .mutation(async ({ ctx, input: { name, snapshot } }) => {
-      await ctx.db
+    .mutation(async ({ ctx, input: { name } }) => {
+      const drawing = await ctx.db
         .insert(tldrawSnapshots)
         .values({
           name,
-          snapshot,
+          snapshot: "{}",
           createdAt: new Date(),
           updatedAt: new Date(),
         })
-        .onConflictDoUpdate({
-          target: tldrawSnapshots.name,
-          set: {
-            snapshot,
-            updatedAt: new Date(),
-          },
-        });
+        .returning();
+
+      return drawing[0];
+    }),
+  updateDrawing: publicProcedure
+    .input(
+      z.object({
+        id: z.coerce.number(),
+        snapshot: z.json(),
+      })
+    )
+    .mutation(async ({ ctx, input: { id, snapshot } }) => {
+      await ctx.db
+        .update(tldrawSnapshots)
+        .set({
+          snapshot,
+          updatedAt: new Date(),
+        })
+        .where(eq(tldrawSnapshots.id, id));
     }),
 });
