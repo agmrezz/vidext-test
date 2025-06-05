@@ -14,8 +14,8 @@ import {
 // Menu items.
 const items = [
   {
-    title: "All Projects",
-    url: "#",
+    title: "All Drawings",
+    url: "/editor",
     icon: Home,
   },
 ];
