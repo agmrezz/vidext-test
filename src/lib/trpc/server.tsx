@@ -1,7 +1,7 @@
 import "server-only";
 
-import { appRouter } from "@/server";
-import { createTRPCContext } from "@/server/trpc";
+import { appRouter } from "@/server/trpc";
+import { createTRPCContext } from "@/server/trpc/trpc";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import {
   createTRPCOptionsProxy,

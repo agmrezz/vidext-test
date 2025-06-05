@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchStreamLink } from "@trpc/client";
 import { useState } from "react";
 
-import { AppRouter } from "@/server";
+import { AppRouter } from "@/server/trpc";
 import { createTRPCContext } from "@trpc/tanstack-react-query";
 import superjson from "superjson";
 import { makeQueryClient } from "./query-client";

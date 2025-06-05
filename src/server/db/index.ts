@@ -1,5 +1,9 @@
+import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
 import * as schema from "./schema";
-const db = drizzle(process.env.DATABASE_URL!, { schema });
 
-export default db;
+const client = createClient({
+  url: process.env.DB_FILE_NAME!,
+});
+
+export const db = drizzle(client, { schema });

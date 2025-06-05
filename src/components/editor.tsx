@@ -1,8 +1,9 @@
 "use client";
-import { useLayoutEffect, useMemo, useState } from "react";
+import { useTRPC } from "@/lib/trpc/client";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+import { useLayoutEffect, useMemo } from "react";
 import {
   createTLStore,
-  DefaultSpinner,
   getSnapshot,
   loadSnapshot,
   throttle,
@@ -11,62 +12,46 @@ import {
 import "tldraw/tldraw.css";
 import { Card } from "./ui/card";
 
-export function Editor() {
+export function Editor({ name }: { name: string }) {
   const store = useMemo(() => createTLStore(), []);
-  const [loadingState, setLoadingState] = useState<
-    | { status: "loading" }
-    | { status: "ready" }
-    | { status: "error"; error: string }
-  >({
-    status: "loading",
-  });
+
+  const trpc = useTRPC();
+  const { data: drawing, isLoading } = useSuspenseQuery(
+    trpc.editor.getDrawing.queryOptions({ name })
+  );
+  const updateDrawing = useMutation(
+    trpc.editor.updateDrawing.mutationOptions()
+  );
 
   useLayoutEffect(() => {
-    const persistedSnapshot = localStorage.getItem("tldraw-snapshot");
+    const persistedSnapshot = drawing?.snapshot;
 
-    if (persistedSnapshot) {
-      try {
-        const snapshot = JSON.parse(persistedSnapshot);
-        loadSnapshot(store, snapshot);
-        setLoadingState({ status: "ready" });
-      } catch (error: any) {
-        setLoadingState({ status: "error", error: error.message }); // Something went wrong
-      }
-    } else {
-      setLoadingState({ status: "ready" }); // Nothing persisted, continue with the empty store
+    // Wait for the drawing to load
+    if (isLoading) return;
+    // There is no snapshot to load
+    if (!persistedSnapshot) return;
+
+    try {
+      const snapshot = JSON.parse(persistedSnapshot as string);
+      loadSnapshot(store, snapshot);
+    } catch (error: any) {
+      throw new Error("Error loading snapshot");
     }
 
     const cleanupFn = store.listen(
       throttle(() => {
         const snapshot = getSnapshot(store);
-        localStorage.setItem("tldraw-snapshot", JSON.stringify(snapshot));
+        updateDrawing.mutate({
+          name,
+          snapshot: JSON.stringify(snapshot),
+        });
       }, 500)
     );
 
     return () => {
       cleanupFn();
     };
-  }, [store]);
-
-  // [4]
-  if (loadingState.status === "loading") {
-    return (
-      <div className="tldraw__editor">
-        <h2>
-          <DefaultSpinner />
-        </h2>
-      </div>
-    );
-  }
-
-  if (loadingState.status === "error") {
-    return (
-      <div className="tldraw__editor">
-        <h2>Error!</h2>
-        <p>{loadingState.error}</p>
-      </div>
-    );
-  }
+  }, [store, drawing, isLoading]);
 
   return (
     <Card className="h-full w-full rounded-lg overflow-hidden p-0 tldraw__editor">
