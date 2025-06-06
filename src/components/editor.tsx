@@ -50,7 +50,7 @@ const RandomizeGeo = () => {
       onClick={handleClick}
       className="absolute top-[60px] left-3 z-[1000]"
     >
-      Randomize
+      Randomize Geo
     </Button>
   );
 };

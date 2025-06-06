@@ -29,25 +29,20 @@ export const editorRouter = router({
       })
     )
     .query(async ({ ctx, input: { limit, cursor } }) => {
-      try {
-        const drawings = await ctx.db.query.tldrawSnapshots.findMany({
-          where: (tldrawSnapshots, { gt }) =>
-            cursor ? gt(tldrawSnapshots.id, cursor) : undefined,
-          orderBy: (tldrawSnapshots, { asc }) => asc(tldrawSnapshots.createdAt),
-          limit: limit + 1,
-        });
+      const drawings = await ctx.db.query.tldrawSnapshots.findMany({
+        where: (tldrawSnapshots, { gt }) =>
+          cursor ? gt(tldrawSnapshots.id, cursor) : undefined,
+        orderBy: (tldrawSnapshots, { asc }) => asc(tldrawSnapshots.createdAt),
+        limit: limit + 1,
+      });
 
-        let nextCursor: typeof cursor | undefined = undefined;
-        if (drawings.length > limit) {
-          const nextItem = drawings.pop();
-          nextCursor = nextItem!.id;
-        }
-
-        return { drawings, nextCursor };
-      } catch (error) {
-        console.error(error);
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+      let nextCursor: typeof cursor | undefined = undefined;
+      if (drawings.length > limit) {
+        const nextItem = drawings.pop();
+        nextCursor = nextItem!.id;
       }
+
+      return { drawings, nextCursor };
     }),
   getDrawing: publicProcedure
     .input(
@@ -62,18 +57,13 @@ export const editorRouter = router({
       })
     )
     .query(async ({ ctx, input: { id } }) => {
-      try {
-        const drawing = await ctx.db.query.tldrawSnapshots.findFirst({
-          where: eq(tldrawSnapshots.id, id),
-        });
-        if (!drawing) {
-          throw new TRPCError({ code: "NOT_FOUND" });
-        }
-        return drawing;
-      } catch (error) {
-        console.error(error);
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+      const drawing = await ctx.db.query.tldrawSnapshots.findFirst({
+        where: eq(tldrawSnapshots.id, id),
+      });
+      if (!drawing) {
+        throw new TRPCError({ code: "NOT_FOUND" });
       }
+      return drawing;
     }),
   createDrawing: publicProcedure
     .input(

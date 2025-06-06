@@ -14,10 +14,12 @@ function LoadingCard() {
 
 export default function Loading() {
   return (
-    <div className="flex flex-wrap gap-4">
-      {Array.from({ length: 10 }).map((_, index) => (
-        <LoadingCard key={index} />
-      ))}
+    <div className="p-4">
+      <div className="flex flex-wrap gap-4">
+        {Array.from({ length: 10 }).map((_, index) => (
+          <LoadingCard key={index} />
+        ))}
+      </div>
     </div>
   );
 }

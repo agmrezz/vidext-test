@@ -15,7 +15,7 @@ import {
 const items = [
   {
     title: "All Drawings",
-    url: "/editor",
+    url: "/",
     icon: Home,
   },
 ];

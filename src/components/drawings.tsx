@@ -164,7 +164,7 @@ export function Drawings() {
         {drawingsQuery.data?.pages.map((page) =>
           page.drawings.map((drawing) => (
             <Link href={`/editor/${drawing.id}`} key={drawing.id}>
-              <Card key={drawing.id} className="w-full">
+              <Card className="w-full">
                 <CardHeader>
                   <CardTitle>{drawing.name}</CardTitle>
                 </CardHeader>
